@@ -3,10 +3,11 @@ import { productModel } from "../models/products.js";
 
 export const getProducts = async ( req = request, res = response) => {
     try{
-        // TODO: terminar el metodo
-        // const { limit } = req.query;
-        const products = await productModel.find();
-        return res.json({ products });
+        const { limit } = req.query;
+        // const products = await productModel.find().limit(Number(limit));
+        // const total = await productModel.countDocuments();
+        const [products, total] = await Promise.all([productModel.find().limit(Number(limit)), productModel.countDocuments()]);
+        return res.json({ total, products });
     } catch {
         console.log(`getProducts -> `, error);
         return res.status(500).json({msg:`Hablar con un administrador`});

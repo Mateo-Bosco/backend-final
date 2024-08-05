@@ -18,6 +18,6 @@ ProductSchema.set(`toJSON`,{
         delete ret.__v;
         return ret;
     }
-})
+});
 
 export const productModel = model(nameCollection, ProductSchema);

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const dbConnection = async () => {
     try {
-        await mongoose.connect("mongodb+srv://Bosco:bosco2135@solutioneus.xefhlef.mongodb.net/ecommerce");
+        await mongoose.connect(process.env.URI_MONGO_DB);
         console.log("Base de datos online");
     } catch (error) {
         console.log(`Error al levantar la base de datos ${error}`);

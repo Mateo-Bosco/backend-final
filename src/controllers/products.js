@@ -1,15 +1,11 @@
 import { request, response } from "express";
-import { productModel } from "../models/products.js";
+import { getProductsService } from "../services/products.js";
 
 export const getProducts = async ( req = request, res = response) => {
     try{
-        const { limit } = req.query;
-        // const products = await productModel.find().limit(Number(limit));
-        // const total = await productModel.countDocuments();
-        const [products, total] = await Promise.all([productModel.find().limit(Number(limit)), productModel.countDocuments()]);
-        return res.json({ total, products });
+        const result = await getProductsService({...req.query});
+        return res.json({ result });
     } catch {
-        console.log(`getProducts -> `, error);
         return res.status(500).json({msg:`Hablar con un administrador`});
     }
 }
